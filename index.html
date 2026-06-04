@@ -55,6 +55,8 @@ h1 span{background:linear-gradient(135deg,var(--coral),var(--lavender));-webkit-
 .subtitle{font-size:1rem;color:var(--muted);margin-top:0.5rem;font-weight:600;}
 .pill-stat{display:inline-flex;align-items:center;gap:6px;background:var(--white);border:2px solid var(--border);border-radius:50px;padding:6px 14px;font-size:0.8rem;font-weight:700;color:var(--muted);margin:0.6rem 0.3rem;box-shadow:0 2px 8px var(--shadow);}
 .pill-stat b{color:var(--text);}
+.pill-stat.interactive{cursor:pointer;transition:all 0.15s;}
+.pill-stat.interactive:hover{border-color:var(--sky);color:var(--sky);transform:scale(1.05);}
 
 /* ── nav tabs ── */
 .tabs{display:flex;justify-content:center;gap:8px;margin:1.2rem 0;}
@@ -67,20 +69,32 @@ h1 span{background:linear-gradient(135deg,var(--coral),var(--lavender));-webkit-
 
 /* ── controls bar ── */
 .controls{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:1rem 0 1.4rem;}
+.shuffle-group{display:inline-flex;align-items:center;background:var(--white);border:2.5px solid var(--border);border-radius:50px;padding:2px;box-shadow:0 2px 8px var(--shadow);}
+.shuffle-history-btn{background:none;border:none;color:var(--text);font-size:1rem;cursor:pointer;width:32px;height:32px;display:flex;align-items:center;justify-content:center;transition:all 0.15s;border-radius:50%;}
+.shuffle-history-btn:hover:not(:disabled){background:var(--border);color:var(--sky);}
+.shuffle-history-btn:disabled{opacity:0.3;cursor:not-allowed;}
 .btn{padding:0.6rem 1.4rem;border-radius:50px;border:2.5px solid transparent;font-family:'Fredoka',sans-serif;font-size:1rem;font-weight:600;cursor:pointer;transition:all 0.18s cubic-bezier(.34,1.56,.64,1);display:inline-flex;align-items:center;gap:6px;}
 .btn:hover{transform:translateY(-2px) scale(1.04);}
 .btn:active{transform:scale(0.96);}
-.btn-shuffle{background:var(--sun);color:#12141D;border-color:var(--sun);box-shadow:0 4px 14px rgba(255,217,61,0.2);}
+.btn-shuffle{background:var(--sun);color:#12141D;border-color:var(--sun);box-shadow:0 4px 14px rgba(255,217,61,0.2);margin:0;}
 .btn-shuffle:hover{box-shadow:0 7px 20px rgba(255,217,61,0.3);}
 .btn-outline{background:var(--white);color:var(--text);border-color:var(--border);box-shadow:0 2px 8px var(--shadow);}
 .btn-outline:hover{border-color:var(--sky);color:var(--sky);}
 .btn-outline.active{background:var(--sky);border-color:var(--sky);color:#12141D;box-shadow:0 4px 14px rgba(78,205,196,0.25);}
 
 .search-wrap{position:relative;display:flex;align-items:center;}
-.search-wrap input{padding:0.6rem 1.2rem 0.6rem 2.6rem;border-radius:50px;border:2.5px solid var(--border);background:var(--white);font-family:'Nunito',sans-serif;font-size:0.9rem;font-weight:600;color:var(--text);width:220px;outline:none;box-shadow:0 2px 8px var(--shadow);transition:border-color 0.15s,box-shadow 0.15s;}
+.search-wrap input{padding:0.6rem 2.8rem 0.6rem 2.6rem;border-radius:50px;border:2.5px solid var(--border);background:var(--white);font-family:'Nunito',sans-serif;font-size:0.9rem;font-weight:600;color:var(--text);width:220px;outline:none;box-shadow:0 2px 8px var(--shadow);transition:border-color 0.15s,box-shadow 0.15s;}
 .search-wrap input:focus{border-color:var(--sky);box-shadow:0 0 0 3px rgba(78,205,196,0.15);}
 .search-wrap input::placeholder{color:var(--muted);}
 .search-icon{position:absolute;left:10px;font-size:1rem;pointer-events:none;}
+.search-clear{position:absolute;right:12px;font-size:1rem;cursor:pointer;color:var(--muted);transition:color 0.15s;background:none;border:none;display:none;font-weight:bold;outline:none;}
+.search-clear:hover{color:var(--coral);}
+
+/* ── filter presets row ── */
+.preset-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:1rem;padding:0 1rem;}
+.preset-btn{padding:5px 14px;border-radius:50px;border:2px dashed var(--border);background:transparent;font-size:0.75rem;font-weight:800;cursor:pointer;transition:all 0.15s;color:var(--muted);display:inline-flex;align-items:center;gap:4px;}
+.preset-btn:hover{border-color:var(--sky);color:var(--sky);background:rgba(78,205,196,0.05);}
+.preset-btn.on{border-color:var(--sky);color:#12141D;background:var(--sky);}
 
 /* ── genre filter pills ── */
 .genre-row{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-bottom:1.5rem;}
@@ -122,11 +136,43 @@ h1 span{background:linear-gradient(135deg,var(--coral),var(--lavender));-webkit-
 .card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:0.6rem;}
 .card-title{font-family:'Fredoka',sans-serif;font-size:1.18rem;font-weight:600;line-height:1.25;flex:1;}
 .card-actions{display:flex;gap:5px;flex-shrink:0;}
-.icon-btn{width:32px;height:32px;border-radius:50%;border:2px solid var(--border);background:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.9rem;transition:all 0.15s cubic-bezier(.34,1.56,.64,1);box-shadow:0 1px 4px var(--shadow);}
+.icon-btn{width:32px;height:32px;border-radius:50%;border:2px solid var(--border);background:var(--white);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.9rem;transition:all 0.15s cubic-bezier(.34,1.56,.64,1);box-shadow:0 1px 4px var(--shadow);color:var(--text);}
 .icon-btn:hover{transform:scale(1.2);}
 .icon-btn.faved{background:rgba(255,110,180,0.15);border-color:var(--pink);animation:heartPop 0.3s cubic-bezier(.34,1.56,.64,1);}
-.icon-btn.copied{background:rgba(107,203,119,0.15);border-color:var(--mint);}
+.icon-btn.copied{background:rgba(107,203,119,0.15);border-color:var(--mint);color:#fff;}
 @keyframes heartPop{0%{transform:scale(1);}50%{transform:scale(1.4);}100%{transform:scale(1);}}
+
+/* ── Dev Complexity Badge ── */
+.complexity-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--sun);
+  background: rgba(255, 217, 61, 0.1);
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin-bottom: 0.6rem;
+}
+
+/* ── Dropdown Select elements inside cards during tweak mode ── */
+.tweak-select {
+  background: var(--bg);
+  color: var(--text);
+  border: 1.5px solid var(--border);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  max-width: 100%;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+.tweak-select:focus {
+  border-color: var(--sky);
+}
 
 .active-project{
   background:var(--card); border:2px solid var(--sky); border-radius:16px;
@@ -140,7 +186,8 @@ h1 span{background:linear-gradient(135deg,var(--coral),var(--lavender));-webkit-
 .card-desc{font-size:0.86rem;color:var(--muted);line-height:1.6;font-weight:600;margin-bottom:0.85rem;}
 
 .tags{display:flex;flex-wrap:wrap;gap:5px;}
-.tag{padding:3px 10px;border-radius:50px;font-size:0.72rem;font-weight:800;letter-spacing:0.02em;}
+.tag{padding:3px 10px;border-radius:50px;font-size:0.72rem;font-weight:800;letter-spacing:0.02em;cursor:pointer;transition:all 0.1s;}
+.tag:hover{transform:scale(1.08);filter:brightness(1.2);}
 .t-genre{background:rgba(224,85,85,0.15);color:#FF8888;}
 .t-mechanic{background:rgba(58,123,213,0.15);color:#70A4FF;}
 .t-setting{background:rgba(46,125,79,0.15);color:#66CC99;}
@@ -177,6 +224,83 @@ h1 span{background:linear-gradient(135deg,var(--coral),var(--lavender));-webkit-
 .btn-big:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 8px 22px var(--shadow);}
 .btn-big:active{transform:scale(0.97);}
 
+/* ── Design Notebook Drawer ── */
+.notebook-drawer {
+  position: fixed;
+  top: 0;
+  right: -320px;
+  width: 320px;
+  height: 100vh;
+  background: var(--white);
+  border-left: 3px solid var(--border);
+  z-index: 1050;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+  transition: right 0.35s cubic-bezier(.34,1.56,.64,1);
+}
+.notebook-drawer.open {
+  right: 0;
+}
+.notebook-hdr {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.notebook-close {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+}
+.notebook-close:hover { color: var(--coral); }
+.notebook-textarea {
+  width: 100%;
+  flex: 1;
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  padding: 1rem;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  resize: none;
+  outline: none;
+  margin: 1rem 0;
+}
+.notebook-textarea:focus {
+  border-color: var(--sky);
+}
+.notebook-btn {
+  width: 100%;
+  padding: 0.7rem;
+  border-radius: 50px;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+.notebook-floating-trigger {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 999;
+  background: var(--mint);
+  color: #12141D;
+  border-color: var(--mint);
+  box-shadow: 0 4px 20px rgba(107, 203, 119, 0.4);
+}
+.notebook-floating-trigger:hover {
+  box-shadow: 0 8px 30px rgba(107, 203, 119, 0.6);
+}
+
 /* ── favorites empty ── */
 .fav-empty{text-align:center;padding:4rem 1rem;color:var(--muted);}
 .fav-empty .big-emoji{font-size:4rem;display:block;margin-bottom:1rem;animation:wobble 2s ease-in-out infinite;}
@@ -198,7 +322,41 @@ h1 span{background:linear-gradient(135deg,var(--coral),var(--lavender));-webkit-
 .toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(80px);background:var(--text);color:var(--bg);padding:0.6rem 1.4rem;border-radius:50px;font-size:0.85rem;font-weight:700;z-index:1000;transition:transform 0.3s cubic-bezier(.34,1.56,.64,1);}
 .toast.show{transform:translateX(-50%) translateY(0);}
 
-@media(max-width:600px){.page{padding:1rem 1rem 4rem;}.spot-card{padding:1.8rem 1.5rem;}.spot-title{font-size:1.5rem;}}
+/* ── custom design document modal ── */
+.gdd-backdrop{
+  position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:1100;
+  display:flex;align-items:center;justify-content:center;padding:1.5rem;
+  opacity:0;pointer-events:none;transition:opacity 0.2s ease;
+}
+.gdd-backdrop.open{opacity:1;pointer-events:auto;}
+.gdd-modal{
+  background:var(--white);border:3px solid var(--border);border-radius:24px;
+  width:100%;max-width:540px;max-height:85vh;overflow-y:auto;
+  box-shadow:0 24px 60px rgba(0,0,0,0.6);padding:2.2rem;
+  position:relative;transform:scale(0.9);transition:transform 0.25s cubic-bezier(.34,1.56,.64,1);
+}
+.gdd-backdrop.open .gdd-modal{transform:scale(1);}
+.gdd-close{
+  position:absolute;top:15px;right:15px;width:32px;height:32px;border-radius:50%;
+  border:2px solid var(--border);background:var(--bg);color:var(--text);
+  font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700;
+}
+.gdd-close:hover{background:var(--coral);color:#12141D;border-color:var(--coral);}
+.gdd-header{margin-bottom:1.2rem;text-align:left;}
+.gdd-subtitle{font-size:0.8rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--sky);font-weight:800;margin-bottom:0.2rem;}
+.gdd-title{font-family:'Fredoka',sans-serif;font-size:1.8rem;color:var(--text);line-height:1.25;}
+.gdd-meta-tags{display:flex;flex-wrap:wrap;gap:5px;margin:0.8rem 0 1.2rem 0;}
+.gdd-divider{height:2px;background:var(--border);margin-bottom:1.2rem;}
+.gdd-section{margin-bottom:1.3rem;}
+.gdd-sec-title{font-family:'Fredoka',sans-serif;font-size:1rem;color:var(--sun);margin-bottom:0.4rem;display:flex;align-items:center;gap:6px;}
+.gdd-sec-body{font-size:0.88rem;line-height:1.6;color:var(--muted);font-weight:600;white-space:pre-line;}
+
+@media(max-width:600px){
+  .page{padding:1rem 1rem 4rem;}
+  .spot-card{padding:1.8rem 1.5rem;}
+  .spot-title{font-size:1.5rem;}
+  .gdd-modal{padding:1.5rem 1.2rem;}
+}
 </style>
 </head>
 <body>
@@ -209,7 +367,7 @@ h1 span{background:linear-gradient(135deg,var(--coral),var(--lavender));-webkit-
 
 <div class="page">
   <header>
-    <div class="logo">🎮</div>
+    <div class="logo" onclick="testSoundSynth()">🎮</div>
     <h1>Game Idea <span>Generator</span></h1>
     <p class="subtitle">Thousands of wild, weird & wonderful game concepts</p>
     <div>
@@ -217,6 +375,7 @@ h1 span{background:linear-gradient(135deg,var(--coral),var(--lavender));-webkit-
       <span class="pill-stat"><b id="stat-genres">20</b> genres</span>
       <span class="pill-stat"><b id="stat-mechanics">30</b> mechanics</span>
       <span class="pill-stat"><b id="stat-settings">35</b> settings</span>
+      <span class="pill-stat interactive" onclick="toggleMute()"><span id="mute-icon">🔊</span> Sounds</span>
       <span class="pill-stat" id="fav-stat" style="display:none"><b id="stat-favs">0</b> ❤️ saved</span>
     </div>
   </header>
@@ -234,13 +393,29 @@ h1 span{background:linear-gradient(135deg,var(--coral),var(--lavender));-webkit-
   <!-- grid view -->
   <div id="grid-view">
     <div class="controls">
-      <button class="btn btn-shuffle" id="shuffle-btn" onclick="doShuffle()">🎲 Shuffle Ideas</button>
+      <div class="shuffle-group">
+        <button class="shuffle-history-btn" id="shuffle-back" onclick="shuffleHistoryBack()" disabled title="Go back to previous shuffle">←</button>
+        <button class="btn btn-shuffle" id="shuffle-btn" onclick="doShuffle()">🎲 Shuffle Ideas</button>
+        <button class="shuffle-history-btn" id="shuffle-forward" onclick="shuffleHistoryForward()" disabled title="Go forward to next shuffle">→</button>
+      </div>
       <div class="search-wrap">
         <span class="search-icon">🔍</span>
-        <input type="text" id="search" placeholder="Search anything…" oninput="render()">
+        <input type="text" id="search" placeholder="Search anything…" oninput="onSearchInput()">
+        <button class="search-clear" id="search-clear" onclick="clearSearch()" title="Clear search">×</button>
       </div>
+      <button class="btn btn-outline" id="quick-pitch-btn" onclick="openRandomGDD()" title="Open a GDD for a random matching idea">🎯 Quick Pitch</button>
       <button class="btn btn-outline" id="fav-only-btn" onclick="toggleFavOnly()">❤️ Faves Only</button>
     </div>
+
+    <!-- Vibe presets row (QOL Filter Preset) -->
+    <div class="preset-row">
+      <button class="preset-btn" id="preset-all" onclick="applyPreset('')">🔄 Reset Filters</button>
+      <button class="preset-btn" id="preset-cozy" onclick="applyPreset('cozy')">🌸 Cozy Mode</button>
+      <button class="preset-btn" id="preset-action" onclick="applyPreset('action')">⚡ High Energy</button>
+      <button class="preset-btn" id="preset-multi" onclick="applyPreset('co-op')">👥 With Friends</button>
+      <button class="preset-btn" id="preset-solo" onclick="applyPreset('solo')">👤 Solo Quest</button>
+    </div>
+
     <div class="genre-row" id="genre-row"></div>
     <div class="count-row" id="count-row">
       <button class="cnt-btn on" onclick="setCount(6)" data-n="6">6</button>
@@ -268,6 +443,67 @@ h1 span{background:linear-gradient(135deg,var(--coral),var(--lavender));-webkit-
   <!-- favorites view -->
   <div id="fav-view" style="display:none">
     <div id="fav-cards"></div>
+  </div>
+</div>
+
+<!-- Sliding Design Notebook Sidebar (QOL Feature) -->
+<div class="notebook-drawer" id="notebook">
+  <div class="notebook-hdr">
+    <span>📝 Design Notebook</span>
+    <button class="notebook-close" onclick="toggleNotebook()">×</button>
+  </div>
+  <p style="font-size:0.78rem; color:var(--muted); font-weight:700; line-height:1.4;">Jot down notes, brainstorm rules, or combine details here. Your drafts are kept local for quick copy!</p>
+  <textarea class="notebook-textarea" id="notebook-txt" placeholder="Draft your game mechanics or copy details from your pinned focus project here..."></textarea>
+  <button class="btn notebook-btn" style="background:var(--sky); color:#12141D;" onclick="notebookInsertPinned()">📌 Insert Focused Idea</button>
+  <button class="btn notebook-btn" style="background:var(--white); color:var(--text); border:1.5px solid var(--border);" onclick="notebookCopyAll()">📋 Copy Notebook</button>
+  <button class="btn notebook-btn" style="background:var(--coral); color:#12141D;" onclick="notebookClear()">🗑️ Clear Notes</button>
+</div>
+
+<button class="btn notebook-floating-trigger" onclick="toggleNotebook()">📝 Notebook</button>
+
+<!-- custom game design document (GDD) modal with platform toggle & export -->
+<div class="gdd-backdrop" id="gdd-backdrop" onclick="closeGDD()">
+  <div class="gdd-modal" onclick="event.stopPropagation()">
+    <button class="gdd-close" onclick="closeGDD()">×</button>
+    <div class="gdd-header">
+      <div class="gdd-subtitle">📁 Mini Game Design Document</div>
+      <div class="gdd-title" id="gdd-title">Untitled Game Pitch</div>
+      <div class="gdd-meta-tags" id="gdd-meta-tags"></div>
+    </div>
+    
+    <!-- Platform Selector & Copy Action Row (QOL GDD customizer) -->
+    <div style="margin-bottom:1.5rem; padding:0.5rem 0.8rem; background:rgba(255,255,255,0.03); border-radius:12px; border:1px solid var(--border); display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+      <label style="font-size:0.8rem; font-weight:800; color:var(--muted); text-transform:uppercase; letter-spacing:0.05em;">Target Platform:</label>
+      <select id="gdd-platform" onchange="updateGDDPlatform()" style="background:var(--bg); color:var(--text); border:1px solid var(--border); padding:5px 10px; border-radius:8px; font-weight:700; font-size:0.85rem; outline:none; cursor:pointer;">
+        <option value="PC">🖥️ PC / Steam</option>
+        <option value="Console">🎮 Home Console</option>
+        <option value="Mobile">📱 Mobile / Touch</option>
+        <option value="Web">🌐 Web Browser</option>
+      </select>
+      <button class="preset-btn" style="border-style:solid; border-color:var(--sky); color:#12141D; background:var(--sky); font-size:0.8rem; margin-left:auto; padding:6px 14px;" onclick="copyFullGDD()">📋 Copy GDD</button>
+    </div>
+
+    <div class="gdd-divider"></div>
+    
+    <div class="gdd-section">
+      <div class="gdd-sec-title">🎯 Marketing Hook</div>
+      <div class="gdd-sec-body" id="gdd-marketing-hook">Loading hook description...</div>
+    </div>
+    
+    <div class="gdd-section">
+      <div class="gdd-sec-title">🔁 Core Gameplay Loop</div>
+      <div class="gdd-sec-body" id="gdd-gameplay-loop">Loading gameplay loop...</div>
+    </div>
+    
+    <div class="gdd-section">
+      <div class="gdd-sec-title">👥 Ideal Target Audience</div>
+      <div class="gdd-sec-body" id="gdd-audience">Loading target audience...</div>
+    </div>
+    
+    <div class="gdd-section">
+      <div class="gdd-sec-title">🌅 The First Hour Experience</div>
+      <div class="gdd-sec-body" id="gdd-first-hour">Loading introductory setup...</div>
+    </div>
   </div>
 </div>
 
@@ -413,6 +649,15 @@ let ideas=[],favorites=new Set(),seed=0,activeGenre=null,showFavOnly=false,displ
 let pinnedIdeaId=null, currentLimit=48;
 const CHUNK_SIZE=48;
 
+// Shuffle History (Undo/Redo QOL)
+let seedHistory = [0];
+let historyIndex = 0;
+
+// GDD & Customizer Dynamic State
+let currentlyInspectedIdeaId = null;
+let tweakStates = {}; // id: boolean to track active edit modes
+let soundMuted = true; // Audio is muted by default to comply with browser safety/interaction rules
+
 const observer = new IntersectionObserver((entries) => {
   if(entries[0].isIntersecting && currentTab === 'grid' && displayCount === 'all') {
     loadMore();
@@ -420,6 +665,87 @@ const observer = new IntersectionObserver((entries) => {
 }, { rootMargin: '400px' });
 
 function build(){ideas=[];for(let i=0;i<TOTAL;i++)ideas.push(makeIdea(i,seed));}
+
+// QOL Sound FX Engine (Synthesized dynamically using Web Audio API)
+let audioCtx = null;
+function initAudio() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+}
+
+function playSynthSound(freqs, duration, type = "triangle", sweep = 0) {
+  if (soundMuted) return;
+  initAudio();
+  if (audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+  const osc = audioCtx.createOscillator();
+  const gainNode = audioCtx.createGain();
+  
+  osc.type = type;
+  osc.frequency.setValueAtTime(freqs[0], audioCtx.currentTime);
+  if (freqs.length > 1) {
+    osc.frequency.exponentialRampToValueAtTime(freqs[1], audioCtx.currentTime + duration);
+  }
+  
+  gainNode.gain.setValueAtTime(0.12, audioCtx.currentTime);
+  gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+  
+  osc.connect(gainNode);
+  gainNode.connect(audioCtx.destination);
+  osc.start();
+  osc.stop(audioCtx.currentTime + duration);
+}
+
+// Dedicated Retro sound effects
+function playShuffleSFX() {
+  playSynthSound([150, 600], 0.25, "sine");
+}
+function playCopySFX() {
+  playSynthSound([523.25, 783.99], 0.15, "triangle"); // Cute double-ding
+}
+function playFavSFX() {
+  playSynthSound([440, 880], 0.2, "sine");
+}
+function playFocusSFX() {
+  playSynthSound([330, 220], 0.1, "sawtooth");
+}
+function playTweakSFX() {
+  playSynthSound([440, 330, 440], 0.15, "triangle");
+}
+
+function toggleMute() {
+  soundMuted = !soundMuted;
+  document.getElementById('mute-icon').textContent = soundMuted ? '🔇' : '🔊';
+  showToast(soundMuted ? 'Sounds muted' : 'Retro arcade sound effects enabled!');
+  if (!soundMuted) {
+    initAudio();
+    playFavSFX();
+  }
+}
+
+// QOL: Complexity Evaluator Logic (Returns dev load and recommended tools)
+function getDevDifficulty(genre, mechanic, players) {
+  let heavyGenres = ["Open World RPG", "Tactical Strategy", "Co-op Shooter", "City Builder", "Action Adventure", "Stealth Action"];
+  let mediumGenres = ["Survival Crafting", "Roguelike Deckbuilder", "Metroidvania", "Mystery Detective", "Farming Sim", "Tower Defense", "Beat 'em Up", "Sandbox Physics"];
+  
+  let score = 0;
+  if (heavyGenres.includes(genre)) score += 3;
+  else if (mediumGenres.includes(genre)) score += 2;
+  else score += 1;
+
+  if (mechanic.toLowerCase().includes("multiplayer") || mechanic.toLowerCase().includes("asymmetric")) score += 2;
+  if (players.toLowerCase().includes("multiplayer") || players.toLowerCase().includes("6") || players.toLowerCase().includes("co-op")) score += 1;
+
+  if (score >= 5) {
+    return { rating: "Expert Project", icon: "🚀", engine: "Unity / Unreal Engine" };
+  } else if (score >= 3) {
+    return { rating: "Medium Scope", icon: "⚙️", engine: "Godot Engine" };
+  } else {
+    return { rating: "Easy / Jam Friendly", icon: "🛠️", engine: "GDevelop / Scratch" };
+  }
+}
 
 // Smart Search Implementation
 function checkSearchMatch(idea, tokens) {
@@ -430,7 +756,7 @@ function checkSearchMatch(idea, tokens) {
     let tokenMatched = false;
     let possibleMatches = [t, ...(SYNONYMS[t] || [])];
     
-    // Simple Stemming: If word ends with 's' or 'ies', check singular as well
+    // Simple Stemming
     if (t.endsWith('s') && t.length > 3) {
       possibleMatches.push(t.slice(0, -1));
     }
@@ -453,7 +779,6 @@ function checkSearchMatch(idea, tokens) {
       for (let f of fields) {
         if (f.text.includes(pm)) {
           tokenMatched = true;
-          // Exact word match bonus vs simple substring inclusion
           if (f.text === pm || f.text.split(/[\s,.:;!?()|👥]+/).includes(pm)) {
             totalScore += f.weight * 2;
           } else {
@@ -462,7 +787,6 @@ function checkSearchMatch(idea, tokens) {
         }
       }
     }
-    // All original tokens must find at least one match (AND search style)
     if (!tokenMatched) {
       isMatch = false;
       break;
@@ -487,7 +811,6 @@ function filtered(){
           scoredList.push({ idea: idea, score: matchResult.score });
         }
       }
-      // Sort by score descending, preserving original ID ordering as a secondary sort
       scoredList.sort((a, b) => b.score - a.score || a.idea.id - b.idea.id);
       list = scoredList.map(x => x.idea);
     }
@@ -499,11 +822,54 @@ function filtered(){
 function cardHTML(idea,delay=0,big=false){
   const faved=favorites.has(idea.id);
   const isPinned=pinnedIdeaId===idea.id;
+  const devStats = getDevDifficulty(idea.genre, idea.mechanic, idea.players);
+  const isTweak = tweakStates[idea.id] || false;
+
+  // Render static vs interactive dropdown selects based on tweak mode (QOL Feature)
+  let tagsHTML = "";
+  if (isTweak) {
+    tagsHTML = `
+      <div style="display:flex; flex-direction:column; gap:6px; width:100%; margin-top:0.5rem;">
+        <label style="font-size:0.65rem; color:var(--muted); font-weight:800; text-transform:uppercase;">Tweak elements:</label>
+        <select class="tweak-select" onchange="updateCustomElement(${idea.id}, 'genre', this.value)">
+          ${GENRES.map(g => `<option value="${g}" ${g===idea.genre?'selected':''}>${g}</option>`).join('')}
+        </select>
+        <select class="tweak-select" onchange="updateCustomElement(${idea.id}, 'mechanic', this.value)">
+          ${MECHANICS.map(m => `<option value="${m}" ${m===idea.mechanic?'selected':''}>${m}</option>`).join('')}
+        </select>
+        <select class="tweak-select" onchange="updateCustomElement(${idea.id}, 'setting', this.value)">
+          ${SETTINGS.map(s => `<option value="${s}" ${s===idea.setting?'selected':''}>${s}</option>`).join('')}
+        </select>
+        <select class="tweak-select" onchange="updateCustomElement(${idea.id}, 'art', this.value)">
+          ${ART_STYLES.map(a => `<option value="${a}" ${a===idea.art?'selected':''}>${a}</option>`).join('')}
+        </select>
+      </div>
+    `;
+  } else {
+    tagsHTML = `
+      <div class="tags">
+        <span class="tag t-genre" onclick="applyTagFilter('${idea.genre}')">${idea.genre}</span>
+        <span class="tag t-mechanic" onclick="applyTagFilter('${idea.mechanic}')">${idea.mechanic}</span>
+        <span class="tag t-setting" onclick="applyTagFilter('${idea.setting}')">${idea.setting}</span>
+        <span class="tag t-mood" onclick="applyTagFilter('${idea.mood}')">${idea.mood}</span>
+        <span class="tag t-artstyle" onclick="applyTagFilter('${idea.art}')">${idea.art}</span>
+        <span class="tag t-players" onclick="applyTagFilter('${idea.players}')">👥 ${idea.players}</span>
+      </div>
+    `;
+  }
+
   return`<div class="card${isPinned?' pinned':''}" id="card-${idea.id}" style="animation-delay:${delay}s;${big?'animation:spotIn 0.4s cubic-bezier(.34,1.56,.64,1) both;':''}">
     <div class="card-accent" style="background:${idea.accent}"></div>
+    
+    <div class="complexity-tag" title="Calculated Dev load for this project design">
+      ${devStats.icon} ${devStats.rating} • <b>${devStats.engine}</b>
+    </div>
+
     <div class="card-top">
       <div class="card-title">${idea.title}</div>
       <div class="card-actions">
+        <button class="icon-btn" title="${isTweak?'Lock Tweaks':'Interactive Customizer'}" onclick="toggleTweak(${idea.id})" style="${isTweak?'background:var(--sun);color:#12141D;':''}">🔧</button>
+        <button class="icon-btn" title="Generate Game Design Pitch" onclick="openGDD(${idea.id})">📂</button>
         <button class="icon-btn btn-pin${isPinned?' copied':''}" title="${isPinned?'Unpin Project':'Pin as Focus'}" onclick="togglePin(${idea.id})">📌</button>
         <button class="icon-btn${faved?' faved':''}" title="${faved?'Unfavorite':'Favorite'}" onclick="toggleFav(${idea.id},this)">
           ${faved?'❤️':'🤍'}
@@ -511,16 +877,52 @@ function cardHTML(idea,delay=0,big=false){
         <button class="icon-btn" title="Copy idea" onclick="copyIdea(${idea.id},this)">📋</button>
       </div>
     </div>
-    <p class="card-desc">${idea.desc}</p>
-    <div class="tags">
-      <span class="tag t-genre">${idea.genre}</span>
-      <span class="tag t-mechanic">${idea.mechanic}</span>
-      <span class="tag t-setting">${idea.setting}</span>
-      <span class="tag t-mood">${idea.mood}</span>
-      <span class="tag t-artstyle">${idea.art}</span>
-      <span class="tag t-players">👥 ${idea.players}</span>
-    </div>
+    <p class="card-desc" id="desc-${idea.id}">${idea.desc}</p>
+    ${tagsHTML}
   </div>`;
+}
+
+// QOL Swap & Tweak card customization mechanics
+function toggleTweak(id) {
+  tweakStates[id] = !tweakStates[id];
+  playTweakSFX();
+  
+  // Re-render single card to avoid full list refresh
+  const idea = ideas.find(x => x.id === id);
+  const cardElement = document.getElementById(`card-${id}`);
+  if (cardElement && idea) {
+    const parent = cardElement.parentNode;
+    const placeholder = document.createElement('div');
+    parent.replaceChild(placeholder, cardElement);
+    placeholder.outerHTML = cardHTML(idea, 0);
+  }
+}
+
+function updateCustomElement(id, element, value) {
+  const idea = ideas.find(x => x.id === id);
+  if (!idea) return;
+
+  // Apply change
+  idea[element] = value;
+  
+  // Dynamically rewrite narrative loop text based on new element values
+  const openers=["A "+idea.genre.toLowerCase()+" set in a "+idea.setting.toLowerCase(),"Deep within a "+idea.setting.toLowerCase()+", this "+idea.genre.toLowerCase(),"In the heart of a "+idea.setting.toLowerCase()+", a "+idea.genre.toLowerCase(),"Experience a "+idea.setting.toLowerCase()+" through the lens of this "+idea.genre.toLowerCase(),"This "+idea.genre.toLowerCase()+" drops you into a "+idea.setting.toLowerCase()];
+  const mids=["where "+idea.mechanic.toLowerCase()+" shapes every single choice","built entirely around "+idea.mechanic.toLowerCase(),"using "+idea.mechanic.toLowerCase()+" in ways never seen before","where "+idea.mechanic.toLowerCase()+" becomes your most powerful tool","that redefines what "+idea.mechanic.toLowerCase()+" can mean"];
+  
+  // Use a pseudo-random value based on seed to keep dynamic description stable
+  const idx = (id + element.length) % openers.length;
+  const descText = openers[idx] + " " + mids[idx] + ". A game " + idea.desc.split(" A game ")[1];
+  idea.desc = descText;
+
+  // Update card element text instantly
+  const descEl = document.getElementById(`desc-${id}`);
+  if (descEl) descEl.textContent = descText;
+  
+  // Update focus banner if edited card is currently focused
+  if (pinnedIdeaId === id) {
+    renderBanner();
+  }
+  playSynthSound([300, 400], 0.1, "sine");
 }
 
 function render(){
@@ -590,21 +992,29 @@ function renderSpot(){
   const list=filtered().length?filtered():ideas;
   if(spotIdx>=list.length)spotIdx=0;
   const idea=list[spotIdx];
+  const devStats = getDevDifficulty(idea.genre, idea.mechanic, idea.players);
+  
   document.getElementById('spot-counter').textContent=`Idea ${spotIdx+1} of ${list.length}`;
   document.getElementById('spot-card-wrap').innerHTML=`
     <div class="spot-card">
       <div class="spot-accent" style="background:linear-gradient(90deg,${idea.accent},${ACCENTS[(ACCENTS.indexOf(idea.accent)+3)%ACCENTS.length]})"></div>
+      
+      <div class="complexity-tag" style="margin-bottom:1.2rem;">
+        ${devStats.icon} Dev complexity: <b>${devStats.rating}</b> | Optimal build stack: <b>${devStats.engine}</b>
+      </div>
+
       <div class="spot-title">${idea.title}</div>
       <p class="spot-desc">${idea.desc}</p>
       <div class="spot-tags">
-        <span class="tag t-genre">${idea.genre}</span>
-        <span class="tag t-mechanic">${idea.mechanic}</span>
-        <span class="tag t-setting">${idea.setting}</span>
-        <span class="tag t-mood">${idea.mood}</span>
-        <span class="tag t-artstyle">${idea.art}</span>
-        <span class="tag t-players">👥 ${idea.players}</span>
+        <span class="tag t-genre" onclick="applyTagFilter('${idea.genre}')">${idea.genre}</span>
+        <span class="tag t-mechanic" onclick="applyTagFilter('${idea.mechanic}')">${idea.mechanic}</span>
+        <span class="tag t-setting" onclick="applyTagFilter('${idea.setting}')">${idea.setting}</span>
+        <span class="tag t-mood" onclick="applyTagFilter('${idea.mood}')">${idea.mood}</span>
+        <span class="tag t-artstyle" onclick="applyTagFilter('${idea.art}')">${idea.art}</span>
+        <span class="tag t-players" onclick="applyTagFilter('${idea.players}')">👥 ${idea.players}</span>
       </div>
       <div class="spot-actions">
+        <button class="btn-big" style="background:#2A2D3E;color:#F0F0F5;" onclick="openGDD(${idea.id})">📂 Pitch GDD</button>
         <button class="btn-big" style="background:${pinnedIdeaId===idea.id?'var(--sky)':'#2A2D3E'};color:${pinnedIdeaId===idea.id?'#12141D':'#F0F0F5'};" onclick="togglePin(${idea.id})">
           ${pinnedIdeaId===idea.id?'📌 Focused':'📌 Set Focus'}
         </button>
@@ -632,9 +1042,9 @@ function togglePin(id) {
   if(pinnedIdeaId===id) pinnedIdeaId=null;
   else pinnedIdeaId=id;
   
+  playFocusSFX();
   renderBanner();
   
-  // Update DOM seamlessly without losing scroll position
   document.querySelectorAll('.card').forEach(c=>c.classList.remove('pinned'));
   document.querySelectorAll('.btn-pin').forEach(b=>{
     b.title='Pin as Focus';
@@ -665,14 +1075,100 @@ function renderBanner() {
   `;
 }
 
+// QOL Feature: Interactive tag filtering
+function applyTagFilter(value) {
+  const cleanedValue = value.replace(/^👥\s+/, "");
+  const searchInput = document.getElementById('search');
+  searchInput.value = cleanedValue;
+  document.getElementById('search-clear').style.display = 'block';
+  
+  if(activeGenre && activeGenre !== cleanedValue) {
+    activeGenre = null;
+    document.querySelectorAll('.gpill').forEach(b=>{b.classList.remove('on');b.style.background='';b.style.borderColor='';});
+  }
+  
+  document.querySelectorAll('.preset-btn').forEach(b=>b.classList.remove('on'));
+  
+  switchTab('grid');
+  render();
+  
+  showToast(`Filtering by tag: "${cleanedValue}"`);
+}
+
+// QOL Feature: Clear Search Bar
+function clearSearch() {
+  const searchInput = document.getElementById('search');
+  searchInput.value = '';
+  document.getElementById('search-clear').style.display = 'none';
+  render();
+  showToast('Search cleared');
+}
+
+function onSearchInput() {
+  const val = document.getElementById('search').value;
+  document.getElementById('search-clear').style.display = val ? 'block' : 'none';
+  document.querySelectorAll('.preset-btn').forEach(b=>b.classList.remove('on'));
+  render();
+}
+
+// QOL Feature: Vibe filter presets
+function applyPreset(vibe) {
+  const searchInput = document.getElementById('search');
+  document.querySelectorAll('.preset-btn').forEach(b=>b.classList.remove('on'));
+  
+  if (activeGenre) {
+    activeGenre = null;
+    document.querySelectorAll('.gpill').forEach(b=>{b.classList.remove('on');b.style.background='';b.style.borderColor='';});
+  }
+
+  if (!vibe) {
+    searchInput.value = '';
+    document.getElementById('search-clear').style.display = 'none';
+    document.getElementById('preset-all').classList.add('on');
+    render();
+    showToast('Filters fully reset');
+    return;
+  }
+
+  searchInput.value = vibe;
+  document.getElementById('search-clear').style.display = 'block';
+  document.getElementById(`preset-${vibe === 'co-op' ? 'multi' : vibe === 'cozy' ? 'cozy' : vibe === 'action' ? 'action' : 'solo'}`).classList.add('on');
+  
+  render();
+  showToast(`Vibe profile loaded: ${vibe.toUpperCase()}`);
+}
+
+// QOL Feature: Quick Pitch a matching idea
+function openRandomGDD() {
+  const list = filtered();
+  if (list.length === 0) {
+    showToast('No ideas match current filter to pitch!');
+    return;
+  }
+  const randomIdea = list[Math.floor(Math.random() * list.length)];
+  openGDD(randomIdea.id);
+}
+
 function toggleFav(id,btn){
-  if(favorites.has(id)){favorites.delete(id);btn.innerHTML='🤍';btn.classList.remove('faved');}
-  else{favorites.add(id);btn.innerHTML='❤️';btn.classList.add('faved');}
+  if(favorites.has(id)){
+    favorites.delete(id);
+    btn.innerHTML='🤍';
+    btn.classList.remove('faved');
+  } else {
+    favorites.add(id);
+    btn.innerHTML='❤️';
+    btn.classList.add('faved');
+    playFavSFX();
+  }
   updateFavCount();
 }
 function toggleFavSpot(id){
-  if(favorites.has(id))favorites.delete(id);
-  else favorites.add(id);
+  if(favorites.has(id)) {
+    favorites.delete(id);
+  } else {
+    favorites.add(id);
+    playFavSFX();
+  }
   updateFavCount();
   renderSpot();
 }
@@ -688,7 +1184,15 @@ function copyIdea(id,btn){
   const idea=ideas.find(x=>x.id===id);
   const text=`${idea.title}\n\n${idea.desc}\n\nGenre: ${idea.genre} | Mechanic: ${idea.mechanic} | Setting: ${idea.setting} | Mood: ${idea.mood} | Art: ${idea.art} | Players: ${idea.players}`;
   navigator.clipboard.writeText(text).catch(()=>{});
-  if(btn){btn.innerHTML='✅';btn.classList.add('copied');setTimeout(()=>{btn.innerHTML='📋';btn.classList.remove('copied');},1500);}
+  if(btn){
+    btn.innerHTML='✅';
+    btn.classList.add('copied');
+    setTimeout(()=>{
+      btn.innerHTML='📋';
+      btn.classList.remove('copied');
+    },1500);
+  }
+  playCopySFX();
   showToast('Idea copied to clipboard!');
 }
 
@@ -698,14 +1202,55 @@ function showToast(msg){
   setTimeout(()=>t.classList.remove('show'),2200);
 }
 
+// QOL Feature: Shuffle History
+function updateHistoryButtons() {
+  document.getElementById('shuffle-back').disabled = (historyIndex <= 0);
+  document.getElementById('shuffle-forward').disabled = (historyIndex >= seedHistory.length - 1);
+}
+
 function doShuffle(){
   seed=Math.floor(Math.random()*99999);
+  
+  seedHistory = seedHistory.slice(0, historyIndex + 1);
+  seedHistory.push(seed);
+  historyIndex = seedHistory.length - 1;
+  updateHistoryButtons();
+
   build();
   const btn=document.getElementById('shuffle-btn');
   btn.classList.remove('shuffling');void btn.offsetWidth;btn.classList.add('shuffling');
+  
+  playShuffleSFX();
+  
   if(currentTab==='grid')render();
   else if(currentTab==='spot'){spotIdx=0;renderSpot();}
   showToast('🎲 Fresh ideas loaded!');
+}
+
+function shuffleHistoryBack() {
+  if (historyIndex > 0) {
+    historyIndex--;
+    seed = seedHistory[historyIndex];
+    build();
+    updateHistoryButtons();
+    playShuffleSFX();
+    if(currentTab==='grid')render();
+    else if(currentTab==='spot'){spotIdx=0;renderSpot();}
+    showToast('⏪ Moved back in shuffle history');
+  }
+}
+
+function shuffleHistoryForward() {
+  if (historyIndex < seedHistory.length - 1) {
+    historyIndex++;
+    seed = seedHistory[historyIndex];
+    build();
+    updateHistoryButtons();
+    playShuffleSFX();
+    if(currentTab==='grid')render();
+    else if(currentTab==='spot'){spotIdx=0;renderSpot();}
+    showToast('⏩ Moved forward in shuffle history');
+  }
 }
 
 function toggleFavOnly(){
@@ -732,6 +1277,185 @@ function switchTab(tab){
   if(tab==='spot')renderSpot();
 }
 
+// QOL: Sliding design notebook triggers
+function toggleNotebook() {
+  const notebook = document.getElementById('notebook');
+  notebook.classList.toggle('open');
+  playTweakSFX();
+}
+
+function notebookInsertPinned() {
+  if (!pinnedIdeaId) {
+    showToast("Pin an idea as focused first to import details!");
+    return;
+  }
+  const idea = ideas.find(x => x.id === pinnedIdeaId);
+  if (!idea) return;
+
+  const txt = document.getElementById('notebook-txt');
+  const insertString = `\n--- GAME DOCUMENT draft: ${idea.title.toUpperCase()} ---\n` +
+    `Genre: ${idea.genre}\n` +
+    `Core Mechanics: ${idea.mechanic}\n` +
+    `Setting: ${idea.setting}\n` +
+    `Pitch: ${idea.desc}\n` +
+    `-----------------------------------------------------\n`;
+  
+  txt.value += insertString;
+  playCopySFX();
+  showToast("Inserted focused design details!");
+}
+
+function notebookCopyAll() {
+  const txt = document.getElementById('notebook-txt').value;
+  if (!txt.trim()) {
+    showToast("Notebook draft is empty!");
+    return;
+  }
+  navigator.clipboard.writeText(txt).catch(()=>{});
+  playCopySFX();
+  showToast("Draft document copied to clipboard!");
+}
+
+function notebookClear() {
+  document.getElementById('notebook-txt').value = '';
+  playFocusSFX();
+  showToast("Notebook cleared");
+}
+
+// GDD Dynamic Generator & Customizer
+function openGDD(id) {
+  currentlyInspectedIdeaId = id;
+  const idea = ideas.find(x => x.id === id);
+  if (!idea) return;
+  
+  document.getElementById('gdd-title').textContent = idea.title;
+  
+  const tagsRow = document.getElementById('gdd-meta-tags');
+  tagsRow.innerHTML = `
+    <span class="tag t-genre">${idea.genre}</span>
+    <span class="tag t-mechanic">${idea.mechanic}</span>
+    <span class="tag t-setting">${idea.setting}</span>
+    <span class="tag t-mood">${idea.mood}</span>
+  `;
+  
+  document.getElementById('gdd-platform').value = 'PC';
+  updateGDDPlatform();
+
+  document.getElementById('gdd-backdrop').classList.add('open');
+}
+
+// Dynamic Platform Generator Logic (QOL dynamic compilation)
+function updateGDDPlatform() {
+  if (!currentlyInspectedIdeaId) return;
+  const idea = ideas.find(x => x.id === currentlyInspectedIdeaId);
+  if (!idea) return;
+
+  const platform = document.getElementById('gdd-platform').value;
+  
+  // 1. Marketing Hook adaptation
+  let pitch = `Pitch: "${idea.desc}" This game offers players a premium, atmospheric experience utilizing a stylized ${idea.art.toLowerCase()} art style to transport players to a fascinating ${idea.setting.toLowerCase()}.\n\n`;
+  if (platform === 'Mobile') {
+    pitch += `📱 Mobile Optimization: Designed with short gameplay loops perfect for gaming on the go, utilizing comfortable multi-touch gestures and responsive, vertical layouts.`;
+  } else if (platform === 'PC') {
+    pitch += `🖥️ Steam Integration: Features rich graphical sliders, cloud save compatibility, custom keyboard/mouse configurations, and detailed Steam achievements.`;
+  } else if (platform === 'Console') {
+    pitch += `🎮 Console Optimization: Full support for high-fidelity physical gamepads, immersive haptic vibration controllers, split-screen local play, and achievements/trophies.`;
+  } else {
+    pitch += `🌐 Browser Ready: Runs flawlessly directly on modern web browsers with no installation, instant loading times, and full lightweight optimization.`;
+  }
+  document.getElementById('gdd-marketing-hook').textContent = pitch;
+
+  // 2. Loop adaptation
+  let loops = `1. EXPLORE: Discover hidden secrets across a ${idea.setting.toLowerCase()} in immersive ${idea.players.toLowerCase()} gameplay.\n` +
+              `2. MASTER: Perfect your timing and execute tactical maneuvers using ${idea.mechanic.toLowerCase()} to conquer obstacles.\n` +
+              `3. PROGRESS: Collect resources, purchase skill upgrades, and customize your character's attributes.\n\n`;
+  if (platform === 'Mobile') {
+    loops += `🔄 Control Layout: Virtual thumbsticks and intuitive swipe controls to activate your ${idea.mechanic.toLowerCase()} skill instantly.`;
+  } else if (platform === 'Console') {
+    loops += `🔄 Control Layout: Analog stick movement and controller trigger-based triggers to execute ${idea.mechanic.toLowerCase()} with precision.`;
+  } else {
+    loops += `🔄 Control Layout: Seamless WASD or point-and-click mouse interfaces suited to desktop-focused browser configurations.`;
+  }
+  document.getElementById('gdd-gameplay-loop').textContent = loops;
+
+  // 3. Audience adaptation
+  let audienceProfile = `Primary Audience: Fans of the ${idea.genre} genre who enjoy a ${idea.mood.toLowerCase()} atmosphere.\n`;
+  if (idea.mood === "Tense" || idea.mood === "Chaotic" || idea.mood === "Frantic") {
+    audienceProfile += `Secondary Target: Players who thrive on high-speed reaction puzzles, precision timing, and competitive gameplay challenges.\n`;
+  } else {
+    audienceProfile += `Secondary Target: Players seeking a cozy, relaxed pace with meaningful exploration and slow, creative problem-solving.\n`;
+  }
+  audienceProfile += `Platform Fit: Perfectly balanced for gamers on ${platform} platforms looking for quality clean fun.`;
+  document.getElementById('gdd-audience').textContent = audienceProfile;
+
+  // 4. First Hour Experience adaptation
+  let firstHour = `• Introduction: The game starts with a stunning cinematic sequence introducing the ${idea.setting.toLowerCase()}.\n` +
+                  `• Mechanical Tutorial: Players are safely introduced to the fundamentals of ${idea.mechanic.toLowerCase()} through simple environmental puzzles.\n` +
+                  `• The Narrative Hook: An unexpected twist introduces the primary plot goal within the first 30 minutes, immediately capturing the player's interest.\n`;
+  if (platform === 'Mobile') {
+    firstHour += `• Mobile Session Goal: Complete 3 rapid, engaging introductory levels to earn your first platform milestone inside 15 minutes!`;
+  } else {
+    firstHour += `• Deep-Dive Goal: Unlock the main hub base and begin customizing your setup in a beautiful, uninterrupted gameplay flow.`;
+  }
+  document.getElementById('gdd-first-hour').textContent = firstHour;
+}
+
+// GDD Copy Action (QOL GDD customizer)
+function copyFullGDD() {
+  if (!currentlyInspectedIdeaId) return;
+  const idea = ideas.find(x => x.id === currentlyInspectedIdeaId);
+  const platform = document.getElementById('gdd-platform').value;
+
+  const hook = document.getElementById('gdd-marketing-hook').textContent;
+  const loop = document.getElementById('gdd-gameplay-loop').textContent;
+  const audience = document.getElementById('gdd-audience').textContent;
+  const firstHour = document.getElementById('gdd-first-hour').textContent;
+
+  const documentText = 
+`==============================================
+GAME DESIGN DOCUMENT: ${idea.title.toUpperCase()}
+==============================================
+Target Platform: ${platform}
+Genre: ${idea.genre}
+Core Mechanic: ${idea.mechanic}
+Setting: ${idea.setting}
+Art Style: ${idea.art}
+Vibe/Mood: ${idea.mood}
+
+----------------------------------------------
+1. MARKETING HOOK
+----------------------------------------------
+${hook}
+
+----------------------------------------------
+2. CORE GAMEPLAY LOOP
+----------------------------------------------
+${loop}
+
+----------------------------------------------
+3. TARGET AUDIENCE
+----------------------------------------------
+${audience}
+
+----------------------------------------------
+4. FIRST HOUR EXPERIENCE
+----------------------------------------------
+${firstHour}
+==============================================`;
+
+  navigator.clipboard.writeText(documentText).catch(()=>{});
+  showToast('Copied full GDD Pitch Document!');
+}
+
+function closeGDD() {
+  document.getElementById('gdd-backdrop').classList.remove('open');
+}
+
+// Close modal on Escape key
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeGDD();
+});
+
 // ─── GENRE PILLS ────────────────────────────────────────────────────────────
 const GENRE_COLORS=["#FF6B6B","#FF9A3C","#FFD93D","#6BCB77","#4ECDC4","#4D96FF","#C77DFF","#FF6EB4","#A0C4FF","#CAFFBF"];
 function buildGenrePills(){
@@ -742,10 +1466,12 @@ function buildGenrePills(){
     btn.className='gpill';btn.textContent=g;
     btn.style.setProperty('--gc',GENRE_COLORS[i%GENRE_COLORS.length]);
     btn.onclick=()=>{
-      if(activeGenre===g){activeGenre=null;btn.classList.remove('on');btn.style.background='';btn.style.color='';}
+      document.querySelectorAll('.preset-btn').forEach(b=>b.classList.remove('on'));
+      
+      if(activeGenre===g){activeGenre=null;btn.classList.remove('on');btn.style.background='';btn.style.borderColor='';}
       else{
         activeGenre=g;
-        document.querySelectorAll('.gpill').forEach(b=>{b.classList.remove('on');b.style.background='';b.style.color='';});
+        document.querySelectorAll('.gpill').forEach(b=>{b.classList.remove('on');b.style.background='';b.style.borderColor='';});
         btn.classList.add('on');btn.style.background=GENRE_COLORS[i%GENRE_COLORS.length];btn.style.borderColor=GENRE_COLORS[i%GENRE_COLORS.length];
       }
       render();
@@ -755,7 +1481,6 @@ function buildGenrePills(){
 }
 
 // ─── INIT ────────────────────────────────────────────────────────────────────
-// Dynamically configure stats values to perfectly reflect expanded array limits
 document.getElementById('stat-genres').textContent = GENRES.length;
 document.getElementById('stat-mechanics').textContent = MECHANICS.length;
 document.getElementById('stat-settings').textContent = SETTINGS.length;
