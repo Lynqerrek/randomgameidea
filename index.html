@@ -56,7 +56,7 @@ h1 span{background:linear-gradient(135deg,var(--coral),var(--lavender));-webkit-
 .pill-stat{display:inline-flex;align-items:center;gap:6px;background:var(--white);border:2px solid var(--border);border-radius:50px;padding:6px 14px;font-size:0.8rem;font-weight:700;color:var(--muted);margin:0.6rem 0.3rem;box-shadow:0 2px 8px var(--shadow);}
 .pill-stat b{color:var(--text);}
 .pill-stat.interactive{cursor:pointer;transition:all 0.15s;}
-.pill-stat.interactive:hover{border-color:var(--sky);color:var(--sky);transform:scale(1.05);}
+.pill-stat.interactive:hover{border-color:var(--sky);color(--sky);transform:scale(1.05);}
 
 /* ── nav tabs ── */
 .tabs{display:flex;justify-content:center;gap:8px;margin:1.2rem 0;}
@@ -209,6 +209,9 @@ h1 span{background:linear-gradient(135deg,var(--coral),var(--lavender));-webkit-
   box-shadow:0 16px 50px rgba(0,0,0,0.4);
   position:relative;
   margin-bottom:1.5rem;
+  height:460px; /* Locked height so buttons below don't move */
+  display:flex;
+  flex-direction:column;
 }
 .spot-accent{height:8px;border-radius:50px;margin-bottom:1.5rem;}
 .spot-title{font-family:'Fredoka',sans-serif;font-size:2rem;font-weight:700;margin-bottom:0.8rem;line-height:1.2;}
@@ -218,88 +221,32 @@ h1 span{background:linear-gradient(135deg,var(--coral),var(--lavender));-webkit-
 .spot-card{animation:spotIn 0.4s cubic-bezier(.34,1.56,.64,1);}
 @keyframes spotIn{from{opacity:0;transform:scale(0.88) rotate(-1deg);}to{opacity:1;transform:scale(1) rotate(0deg);}}
 
+/* Custom scroll window inside spotlight card to protect button placements */
+.spot-content-scroll {
+  flex:1;
+  overflow-y:auto;
+  margin-bottom:1rem;
+  padding-right:4px;
+}
+.spot-content-scroll::-webkit-scrollbar {
+  width:5px;
+}
+.spot-content-scroll::-webkit-scrollbar-track {
+  background:transparent;
+}
+.spot-content-scroll::-webkit-scrollbar-thumb {
+  background:var(--border);
+  border-radius:10px;
+}
+.spot-content-scroll::-webkit-scrollbar-thumb:hover {
+  background:var(--sky);
+}
+
 .spot-counter{font-family:'Fredoka',sans-serif;font-size:0.9rem;color:var(--muted);margin-bottom:1rem;}
 .spot-nav{display:flex;gap:12px;justify-content:center;margin-bottom:1rem;}
 .btn-big{padding:0.8rem 2rem;font-size:1.1rem;border-radius:50px;border:none;font-family:'Fredoka',sans-serif;font-weight:600;cursor:pointer;transition:all 0.18s cubic-bezier(.34,1.56,.64,1);box-shadow:0 4px 14px var(--shadow);}
 .btn-big:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 8px 22px var(--shadow);}
 .btn-big:active{transform:scale(0.97);}
-
-/* ── Design Notebook Drawer ── */
-.notebook-drawer {
-  position: fixed;
-  top: 0;
-  right: -320px;
-  width: 320px;
-  height: 100vh;
-  background: var(--white);
-  border-left: 3px solid var(--border);
-  z-index: 1050;
-  padding: 2rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-  box-shadow: -10px 0 30px rgba(0,0,0,0.5);
-  transition: right 0.35s cubic-bezier(.34,1.56,.64,1);
-}
-.notebook-drawer.open {
-  right: 0;
-}
-.notebook-hdr {
-  font-family: 'Fredoka', sans-serif;
-  font-size: 1.4rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  color: var(--text);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.notebook-close {
-  background: none;
-  border: none;
-  color: var(--muted);
-  font-size: 1.5rem;
-  cursor: pointer;
-  line-height: 1;
-}
-.notebook-close:hover { color: var(--coral); }
-.notebook-textarea {
-  width: 100%;
-  flex: 1;
-  background: var(--bg);
-  border: 2px solid var(--border);
-  border-radius: 12px;
-  color: var(--text);
-  padding: 1rem;
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.9rem;
-  resize: none;
-  outline: none;
-  margin: 1rem 0;
-}
-.notebook-textarea:focus {
-  border-color: var(--sky);
-}
-.notebook-btn {
-  width: 100%;
-  padding: 0.7rem;
-  border-radius: 50px;
-  font-family: 'Fredoka', sans-serif;
-  font-size: 0.95rem;
-  margin-bottom: 0.5rem;
-}
-.notebook-floating-trigger {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 999;
-  background: var(--mint);
-  color: #12141D;
-  border-color: var(--mint);
-  box-shadow: 0 4px 20px rgba(107, 203, 119, 0.4);
-}
-.notebook-floating-trigger:hover {
-  box-shadow: 0 8px 30px rgba(107, 203, 119, 0.6);
-}
 
 /* ── favorites empty ── */
 .fav-empty{text-align:center;padding:4rem 1rem;color:var(--muted);}
@@ -353,7 +300,7 @@ h1 span{background:linear-gradient(135deg,var(--coral),var(--lavender));-webkit-
 
 @media(max-width:600px){
   .page{padding:1rem 1rem 4rem;}
-  .spot-card{padding:1.8rem 1.5rem;}
+  .spot-card{padding:1.8rem 1.5rem; height:500px;}
   .spot-title{font-size:1.5rem;}
   .gdd-modal{padding:1.5rem 1.2rem;}
 }
@@ -367,15 +314,14 @@ h1 span{background:linear-gradient(135deg,var(--coral),var(--lavender));-webkit-
 
 <div class="page">
   <header>
-    <div class="logo" onclick="testSoundSynth()">🎮</div>
+    <div class="logo">🎮</div>
     <h1>Game Idea <span>Generator</span></h1>
     <p class="subtitle">Thousands of wild, weird & wonderful game concepts</p>
     <div>
-      <span class="pill-stat"><b id="stat-ideas">4,096</b> ideas</span>
-      <span class="pill-stat"><b id="stat-genres">20</b> genres</span>
+      <span class="pill-stat"><b id="stat-ideas">8,192</b> ideas</span>
+      <span class="pill-stat"><b id="stat-genres">40</b> genres</span>
       <span class="pill-stat"><b id="stat-mechanics">30</b> mechanics</span>
-      <span class="pill-stat"><b id="stat-settings">35</b> settings</span>
-      <span class="pill-stat interactive" onclick="toggleMute()"><span id="mute-icon">🔊</span> Sounds</span>
+      <span class="pill-stat"><b id="stat-settings">40</b> settings</span>
       <span class="pill-stat" id="fav-stat" style="display:none"><b id="stat-favs">0</b> ❤️ saved</span>
     </div>
   </header>
@@ -446,21 +392,6 @@ h1 span{background:linear-gradient(135deg,var(--coral),var(--lavender));-webkit-
   </div>
 </div>
 
-<!-- Sliding Design Notebook Sidebar (QOL Feature) -->
-<div class="notebook-drawer" id="notebook">
-  <div class="notebook-hdr">
-    <span>📝 Design Notebook</span>
-    <button class="notebook-close" onclick="toggleNotebook()">×</button>
-  </div>
-  <p style="font-size:0.78rem; color:var(--muted); font-weight:700; line-height:1.4;">Jot down notes, brainstorm rules, or combine details here. Your drafts are kept local for quick copy!</p>
-  <textarea class="notebook-textarea" id="notebook-txt" placeholder="Draft your game mechanics or copy details from your pinned focus project here..."></textarea>
-  <button class="btn notebook-btn" style="background:var(--sky); color:#12141D;" onclick="notebookInsertPinned()">📌 Insert Focused Idea</button>
-  <button class="btn notebook-btn" style="background:var(--white); color:var(--text); border:1.5px solid var(--border);" onclick="notebookCopyAll()">📋 Copy Notebook</button>
-  <button class="btn notebook-btn" style="background:var(--coral); color:#12141D;" onclick="notebookClear()">🗑️ Clear Notes</button>
-</div>
-
-<button class="btn notebook-floating-trigger" onclick="toggleNotebook()">📝 Notebook</button>
-
 <!-- custom game design document (GDD) modal with platform toggle & export -->
 <div class="gdd-backdrop" id="gdd-backdrop" onclick="closeGDD()">
   <div class="gdd-modal" onclick="event.stopPropagation()">
@@ -510,12 +441,16 @@ h1 span{background:linear-gradient(135deg,var(--coral),var(--lavender));-webkit-
 <div class="toast" id="toast"></div>
 
 <script>
-// ─── DATA (EXPANDED TO OVER 4x THE COMBINATIONS) ───────────────────────────
+// ─── DATA (EXPANDED TO OVER 8,192 UNIQUE COMBINATIONS) ─────────────────────
 const GENRES=[
   "Action Adventure","Open World RPG","Puzzle Platformer","Survival Crafting","Tactical Strategy",
   "Co-op Shooter","Life Simulation","Roguelike Deckbuilder","Metroidvania","Rhythm Action",
   "Party Game","Mystery Detective","Farming Sim","City Builder","Tower Defense",
-  "Stealth Action","Narrative Adventure","Sports Arcade","Base Defense","Sandbox Physics"
+  "Stealth Action","Narrative Adventure","Sports Arcade","Base Defense","Sandbox Physics",
+  "Extreme Sports", "Space Flight Sim", "Mecha Combat", "Educational Trivia", "Endless Runner",
+  "Micro-management Sim", "Creature Collector", "Gravity Puzzle", "Tycoon Business", "Pinball Adventure",
+  "Visual Novel Cozy", "Submarine Explorer", "Toy Sandbox", "Monster Tamer", "Cooperative Kitchen",
+  "Kite Flying Sim", "Wildlife Photo Safari", "Castle Defense", "Baking Simulation", "Time-Travel Puzzle"
 ];
 const MECHANICS=[
   "Time manipulation","Grappling hook movement","Dynamic weather survival","Base building & defense",
@@ -529,7 +464,11 @@ const SETTINGS=[
   "Medieval fantasy kingdom","Wild West frontier","Neon-lit retro arcade","Abandoned space colony",
   "Underground dwarf city","Magical academy","Intergalactic trade hub","Ancient Egyptian mythos",
   "Victorian steampunk London","Solarpunk utopia","Haunted forest","Microscopic world",
-  "Parallel dimension","Desert nomad camp","Cozy mountain village","Subterranean crystal caverns"
+  "Parallel dimension","Desert nomad camp","Cozy mountain village","Subterranean crystal caverns",
+  "Floating Toyland", "Ancient Aztec temple", "Cloud Castle", "Giant's Kitchen Table", "Inside a Grand Piano",
+  "Retro 90s Summer Camp", "Bioluminescent coral reef", "Interstellar library", "Whimsical sweet shop", "Lost Island of Dinosaurs",
+  "Bustling train station", "Origami paper world", "Underground mushroom village", "Automated toy factory", "Art gallery come-to-life",
+  "Cosmic space bakery", "Submerged Atlantis palace", "Retro-future space port", "Ice-cream glacier valley", "Windmill-dotted grasslands"
 ];
 const TWISTS=[
   "You play as the dungeon boss defending against heroes",
@@ -644,7 +583,7 @@ function makeIdea(idx,seed){
 }
 
 // ─── STATE ──────────────────────────────────────────────────────────────────
-const TOTAL=4096;
+const TOTAL=8192;
 let ideas=[],favorites=new Set(),seed=0,activeGenre=null,showFavOnly=false,displayCount=6,currentTab='grid',spotIdx=0;
 let pinnedIdeaId=null, currentLimit=48;
 const CHUNK_SIZE=48;
@@ -656,7 +595,6 @@ let historyIndex = 0;
 // GDD & Customizer Dynamic State
 let currentlyInspectedIdeaId = null;
 let tweakStates = {}; // id: boolean to track active edit modes
-let soundMuted = true; // Audio is muted by default to comply with browser safety/interaction rules
 
 const observer = new IntersectionObserver((entries) => {
   if(entries[0].isIntersecting && currentTab === 'grid' && displayCount === 'all') {
@@ -665,65 +603,6 @@ const observer = new IntersectionObserver((entries) => {
 }, { rootMargin: '400px' });
 
 function build(){ideas=[];for(let i=0;i<TOTAL;i++)ideas.push(makeIdea(i,seed));}
-
-// QOL Sound FX Engine (Synthesized dynamically using Web Audio API)
-let audioCtx = null;
-function initAudio() {
-  if (!audioCtx) {
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  }
-}
-
-function playSynthSound(freqs, duration, type = "triangle", sweep = 0) {
-  if (soundMuted) return;
-  initAudio();
-  if (audioCtx.state === 'suspended') {
-    audioCtx.resume();
-  }
-  const osc = audioCtx.createOscillator();
-  const gainNode = audioCtx.createGain();
-  
-  osc.type = type;
-  osc.frequency.setValueAtTime(freqs[0], audioCtx.currentTime);
-  if (freqs.length > 1) {
-    osc.frequency.exponentialRampToValueAtTime(freqs[1], audioCtx.currentTime + duration);
-  }
-  
-  gainNode.gain.setValueAtTime(0.12, audioCtx.currentTime);
-  gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
-  
-  osc.connect(gainNode);
-  gainNode.connect(audioCtx.destination);
-  osc.start();
-  osc.stop(audioCtx.currentTime + duration);
-}
-
-// Dedicated Retro sound effects
-function playShuffleSFX() {
-  playSynthSound([150, 600], 0.25, "sine");
-}
-function playCopySFX() {
-  playSynthSound([523.25, 783.99], 0.15, "triangle"); // Cute double-ding
-}
-function playFavSFX() {
-  playSynthSound([440, 880], 0.2, "sine");
-}
-function playFocusSFX() {
-  playSynthSound([330, 220], 0.1, "sawtooth");
-}
-function playTweakSFX() {
-  playSynthSound([440, 330, 440], 0.15, "triangle");
-}
-
-function toggleMute() {
-  soundMuted = !soundMuted;
-  document.getElementById('mute-icon').textContent = soundMuted ? '🔇' : '🔊';
-  showToast(soundMuted ? 'Sounds muted' : 'Retro arcade sound effects enabled!');
-  if (!soundMuted) {
-    initAudio();
-    playFavSFX();
-  }
-}
 
 // QOL: Complexity Evaluator Logic (Returns dev load and recommended tools)
 function getDevDifficulty(genre, mechanic, players) {
@@ -885,7 +764,6 @@ function cardHTML(idea,delay=0,big=false){
 // QOL Swap & Tweak card customization mechanics
 function toggleTweak(id) {
   tweakStates[id] = !tweakStates[id];
-  playTweakSFX();
   
   // Re-render single card to avoid full list refresh
   const idea = ideas.find(x => x.id === id);
@@ -922,7 +800,6 @@ function updateCustomElement(id, element, value) {
   if (pinnedIdeaId === id) {
     renderBanner();
   }
-  playSynthSound([300, 400], 0.1, "sine");
 }
 
 function render(){
@@ -1003,16 +880,20 @@ function renderSpot(){
         ${devStats.icon} Dev complexity: <b>${devStats.rating}</b> | Optimal build stack: <b>${devStats.engine}</b>
       </div>
 
-      <div class="spot-title">${idea.title}</div>
-      <p class="spot-desc">${idea.desc}</p>
-      <div class="spot-tags">
-        <span class="tag t-genre" onclick="applyTagFilter('${idea.genre}')">${idea.genre}</span>
-        <span class="tag t-mechanic" onclick="applyTagFilter('${idea.mechanic}')">${idea.mechanic}</span>
-        <span class="tag t-setting" onclick="applyTagFilter('${idea.setting}')">${idea.setting}</span>
-        <span class="tag t-mood" onclick="applyTagFilter('${idea.mood}')">${idea.mood}</span>
-        <span class="tag t-artstyle" onclick="applyTagFilter('${idea.art}')">${idea.art}</span>
-        <span class="tag t-players" onclick="applyTagFilter('${idea.players}')">👥 ${idea.players}</span>
+      <!-- Scrollable container keeps buttons below from moving -->
+      <div class="spot-content-scroll">
+        <div class="spot-title">${idea.title}</div>
+        <p class="spot-desc">${idea.desc}</p>
+        <div class="spot-tags">
+          <span class="tag t-genre" onclick="applyTagFilter('${idea.genre}')">${idea.genre}</span>
+          <span class="tag t-mechanic" onclick="applyTagFilter('${idea.mechanic}')">${idea.mechanic}</span>
+          <span class="tag t-setting" onclick="applyTagFilter('${idea.setting}')">${idea.setting}</span>
+          <span class="tag t-mood" onclick="applyTagFilter('${idea.mood}')">${idea.mood}</span>
+          <span class="tag t-artstyle" onclick="applyTagFilter('${idea.art}')">${idea.art}</span>
+          <span class="tag t-players" onclick="applyTagFilter('${idea.players}')">👥 ${idea.players}</span>
+        </div>
       </div>
+
       <div class="spot-actions">
         <button class="btn-big" style="background:#2A2D3E;color:#F0F0F5;" onclick="openGDD(${idea.id})">📂 Pitch GDD</button>
         <button class="btn-big" style="background:${pinnedIdeaId===idea.id?'var(--sky)':'#2A2D3E'};color:${pinnedIdeaId===idea.id?'#12141D':'#F0F0F5'};" onclick="togglePin(${idea.id})">
@@ -1042,7 +923,6 @@ function togglePin(id) {
   if(pinnedIdeaId===id) pinnedIdeaId=null;
   else pinnedIdeaId=id;
   
-  playFocusSFX();
   renderBanner();
   
   document.querySelectorAll('.card').forEach(c=>c.classList.remove('pinned'));
@@ -1158,7 +1038,6 @@ function toggleFav(id,btn){
     favorites.add(id);
     btn.innerHTML='❤️';
     btn.classList.add('faved');
-    playFavSFX();
   }
   updateFavCount();
 }
@@ -1167,7 +1046,6 @@ function toggleFavSpot(id){
     favorites.delete(id);
   } else {
     favorites.add(id);
-    playFavSFX();
   }
   updateFavCount();
   renderSpot();
@@ -1192,7 +1070,6 @@ function copyIdea(id,btn){
       btn.classList.remove('copied');
     },1500);
   }
-  playCopySFX();
   showToast('Idea copied to clipboard!');
 }
 
@@ -1220,8 +1097,6 @@ function doShuffle(){
   const btn=document.getElementById('shuffle-btn');
   btn.classList.remove('shuffling');void btn.offsetWidth;btn.classList.add('shuffling');
   
-  playShuffleSFX();
-  
   if(currentTab==='grid')render();
   else if(currentTab==='spot'){spotIdx=0;renderSpot();}
   showToast('🎲 Fresh ideas loaded!');
@@ -1233,7 +1108,6 @@ function shuffleHistoryBack() {
     seed = seedHistory[historyIndex];
     build();
     updateHistoryButtons();
-    playShuffleSFX();
     if(currentTab==='grid')render();
     else if(currentTab==='spot'){spotIdx=0;renderSpot();}
     showToast('⏪ Moved back in shuffle history');
@@ -1246,7 +1120,6 @@ function shuffleHistoryForward() {
     seed = seedHistory[historyIndex];
     build();
     updateHistoryButtons();
-    playShuffleSFX();
     if(currentTab==='grid')render();
     else if(currentTab==='spot'){spotIdx=0;renderSpot();}
     showToast('⏩ Moved forward in shuffle history');
@@ -1275,51 +1148,6 @@ function switchTab(tab){
   });
   if(tab==='fav')renderFavs();
   if(tab==='spot')renderSpot();
-}
-
-// QOL: Sliding design notebook triggers
-function toggleNotebook() {
-  const notebook = document.getElementById('notebook');
-  notebook.classList.toggle('open');
-  playTweakSFX();
-}
-
-function notebookInsertPinned() {
-  if (!pinnedIdeaId) {
-    showToast("Pin an idea as focused first to import details!");
-    return;
-  }
-  const idea = ideas.find(x => x.id === pinnedIdeaId);
-  if (!idea) return;
-
-  const txt = document.getElementById('notebook-txt');
-  const insertString = `\n--- GAME DOCUMENT draft: ${idea.title.toUpperCase()} ---\n` +
-    `Genre: ${idea.genre}\n` +
-    `Core Mechanics: ${idea.mechanic}\n` +
-    `Setting: ${idea.setting}\n` +
-    `Pitch: ${idea.desc}\n` +
-    `-----------------------------------------------------\n`;
-  
-  txt.value += insertString;
-  playCopySFX();
-  showToast("Inserted focused design details!");
-}
-
-function notebookCopyAll() {
-  const txt = document.getElementById('notebook-txt').value;
-  if (!txt.trim()) {
-    showToast("Notebook draft is empty!");
-    return;
-  }
-  navigator.clipboard.writeText(txt).catch(()=>{});
-  playCopySFX();
-  showToast("Draft document copied to clipboard!");
-}
-
-function notebookClear() {
-  document.getElementById('notebook-txt').value = '';
-  playFocusSFX();
-  showToast("Notebook cleared");
 }
 
 // GDD Dynamic Generator & Customizer
